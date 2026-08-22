@@ -295,7 +295,11 @@
     border:1px solid var(--line);
     color:#C7D1DB;
     padding:6px 11px;border-radius:6px;
+    display:inline-flex;align-items:center;gap:7px;
   }
+  .chip-icon{width:14px;height:14px;flex:none;color:var(--cyan);}
+  .chip-icon.amber{color:var(--amber);}
+  .cert-icon{width:18px;height:18px;flex:none;color:var(--muted);}
 
   /* ---------- FEATURED PROJECT ---------- */
   .project-card{
@@ -415,6 +419,8 @@
   .list-item .li-sub{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);margin-top:4px;}
   .list-item .li-right{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);white-space:nowrap;}
   .li-right-group{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+  .li-title-row{display:flex;align-items:flex-start;gap:10px;}
+  .li-title-row .cert-icon{margin-top:2px;}
   .verify-link{
     display:inline-flex;align-items:center;gap:4px;
     font-family:'JetBrains Mono',monospace;font-size:11px;
@@ -597,6 +603,197 @@
 </head>
 <body>
 
+<!-- Icon sprite: original minimal line-art glyphs (not brand logos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="icon-java" viewBox="0 0 24 24">
+      <path d="M7 9h10v5a5 5 0 0 1-5 5h0a5 5 0 0 1-5-5V9Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <path d="M17 10.5h1.6a2 2 0 1 1 0 4H17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+      <path d="M9 3.4c-.9.9-.9 1.7 0 2.6M13 3.4c-.9.9-.9 1.7 0 2.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M8 21c3 1 5 1 8 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-spring" viewBox="0 0 24 24">
+      <path d="M3 8c1.8-3 3.6-3 5.4 0s3.6 3 5.4 0 3.6-3 5.4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 13.5c1.8-3 3.6-3 5.4 0s3.6 3 5.4 0 3.6-3 5.4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 19c1.8-3 3.6-3 5.4 0s3.6 3 5.4 0 3.6-3 5.4 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-aws" viewBox="0 0 24 24">
+      <path d="M7 15a4 4 0 0 1-.5-7.97A5 5 0 0 1 16 6.5 4.5 4.5 0 0 1 16.5 15H7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <path d="M6 18.2c3 1.4 9 1.4 12 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M16.4 17.4l1.7.7-.4-1.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-gcp" viewBox="0 0 24 24">
+      <path d="M8 15a4 4 0 0 1-.7-7.94 5 5 0 0 1 9.4-1.36A4.5 4.5 0 0 1 16.5 15H8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <circle cx="8.6" cy="19" r="1.1" fill="currentColor"/>
+      <circle cx="12.5" cy="19" r="1.1" fill="currentColor"/>
+      <circle cx="16.4" cy="19" r="1.1" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-ai" viewBox="0 0 24 24">
+      <path d="m12 3-1.9 4.6L5.5 9.5l4.6 1.9L12 16l1.9-4.6 4.6-1.9L13.9 7.6 12 3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <path d="M5 19l.7-1.7L7.5 16.5 5.8 15.8 5 14l-.8 1.8-1.7.7 1.7.7L5 19Z" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="icon-docker" viewBox="0 0 24 24">
+      <rect x="3.5" y="10" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <rect x="9.7" y="10" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <rect x="9.7" y="4" width="5" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M19 12.7c1.4.2 2 1 2 2.3 0 2-2 3.2-5 3.2H8c-2.6 0-4-1.2-4-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="icon-flux" viewBox="0 0 24 24">
+      <path d="M3 8h4l2-4 4 12 2-6h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-table" viewBox="0 0 24 24">
+      <rect x="4" y="5" width="16" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M4 10.3h16M4 15h16" fill="none" stroke="currentColor" stroke-width="1.3"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 24 24">
+      <path d="M9.5 14.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M8 12.3a3 3 0 0 1 0-4.2l2-2a3 3 0 0 1 4.4 4.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M16 11.7a3 3 0 0 1 0 4.2l-2 2a3 3 0 0 1-4.4-4.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-python" viewBox="0 0 24 24">
+      <path d="M3.5 8c2.5-3.3 6.3-3.3 8.5 0M12 8c2.2-3.3 6-3.3 8.5 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="5.5" cy="8" r=".9" fill="currentColor"/>
+      <circle cx="18.5" cy="8" r=".9" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-k8s" viewBox="0 0 24 24">
+      <path d="M12 3l7.5 4.3v9.4L12 21l-7.5-4.3V7.3L12 3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="2.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="icon-helm" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="12" r="1.8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M12 5v3.5M12 15.5V19M5 12h3.5M15.5 12H19" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-jenkins" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M12 3v3M12 18v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M3 12h3M18 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-terraform" viewBox="0 0 24 24">
+      <rect x="5" y="4.5" width="14" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="5" y="10.5" width="14" height="4" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="5" y="16.5" width="9" height="3" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="icon-ansible" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M15.2 8.8l-2 6-6 2 2-6 6-2Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-db" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="6" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="icon-vector" viewBox="0 0 24 24">
+      <path d="M4 20L19 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+      <path d="M19 5H13M19 5v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24">
+      <path d="M19 5c-7 0-13 4-14 14 9-1 13-6 13-13 0-.3 0-.6-.02-1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M8.4 17.8c2-4.3 5-7.6 9.4-10" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-bolt" viewBox="0 0 24 24">
+      <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-stream" viewBox="0 0 24 24">
+      <path d="M3 7h11m0 0-3-3m3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 12.5h16m0 0-3-3m3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M3 18h9m0 0-3-3m3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-key" viewBox="0 0 24 24">
+      <circle cx="7.5" cy="15.5" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M9.8 13.2 19 4M15.5 7.5l2 2M12.5 10.5l2 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-lock" viewBox="0 0 24 24">
+      <rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="icon-shieldcheck" viewBox="0 0 24 24">
+      <path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M9 12.2l2 2 4-4.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M14.5 14.5 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-checkcircle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M8.3 12.3l2.4 2.4 5-5.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-flask" viewBox="0 0 24 24">
+      <path d="M9 3h6M10 3v5.3l-5 9.2A2 2 0 0 0 6.7 20.5h10.6A2 2 0 0 0 19 17.5l-5-9.2V3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M8 15h8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="icon-cycle" viewBox="0 0 24 24">
+      <path d="M4.5 12a7.5 7.5 0 0 1 12.8-5.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M19.5 12a7.5 7.5 0 0 1-12.8 5.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M17.3 3.5v4h-4M6.7 20.5v-4h4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-send" viewBox="0 0 24 24">
+      <path d="M3 12 21 4l-8 18-2-8-8-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-branch" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="6" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="18" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M6 8v8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M6 8c0 4.4 3.6 4 10 4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="icon-package" viewBox="0 0 24 24">
+      <path d="M3.5 8 12 3.5 20.5 8 12 12.5 3.5 8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M3.5 8v8l8.5 4.5 8.5-4.5V8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 12.5V21" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    </symbol>
+    <symbol id="icon-nodes" viewBox="0 0 24 24">
+      <circle cx="6" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="18" cy="6" r="2.1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <circle cx="12" cy="18" r="2.1" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M8 6h8M7.2 7.8l4 8M16.8 7.8l-4 8" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="icon-api" viewBox="0 0 24 24">
+      <path d="M3.5 8h12m0 0-3-3m3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20.5 16h-12m0 0 3-3m-3 3 3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-rag" viewBox="0 0 24 24">
+      <rect x="3.5" y="3" width="11" height="14" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M6.3 7h5.4M6.3 10h5.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      <circle cx="16" cy="16.5" r="3.3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M18.4 19l2.1 2.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-mcp" viewBox="0 0 24 24">
+      <path d="M9 3v5M15 3v5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M6 8h12v3a6 6 0 0 1-12 0V8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 17v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-llm" viewBox="0 0 24 24">
+      <rect x="6.5" y="6.5" width="11" height="11" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M9.5 3.5v3M14.5 3.5v3M9.5 17.5v3M14.5 17.5v3M3.5 9.5h3M3.5 14.5h3M17.5 9.5h3M17.5 14.5h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-pattern" viewBox="0 0 24 24">
+      <path d="M9 4.5h3.5a1 1 0 0 1 1 1v1.7a1.8 1.8 0 1 0 0 3.6v1.7a1 1 0 0 1-1 1H10a1.8 1.8 0 1 1-3.6 0H4.9a1 1 0 0 1-1-1v-3a1.8 1.8 0 1 0 0-3.6v-1.4a1 1 0 0 1 1-1H8a1.8 1.8 0 1 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-system" viewBox="0 0 24 24">
+      <rect x="4" y="4" width="16" height="3.6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="4" y="10.2" width="16" height="3.6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <rect x="4" y="16.4" width="16" height="3.6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    </symbol>
+    <symbol id="icon-agile" viewBox="0 0 24 24">
+      <path d="M6 3v18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M6 4.5h11l-3 4 3 4H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-dsa" viewBox="0 0 24 24">
+      <circle cx="12" cy="4.5" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="6" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="18" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="3.5" cy="19.5" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <circle cx="9" cy="19.5" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <path d="M12 6.4 7 10.2M12 6.4l4.8 3.8M6 14l-2 3.7M6 14l2.3 3.7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    </symbol>
+  </defs>
+</svg>
+
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="ambient" aria-hidden="true">
   <span class="orb orb-cyan"></span>
@@ -686,7 +883,7 @@
       </div>
 
       <div class="photo-frame tilt" id="photoTilt">
-        <img src="SN.png" alt="Sourabh Naneriya">
+         <img src="SN.png" alt="Sourabh Naneriya">
         <div class="photo-tag"><span>sourabh.jpg</span><span>3+ yrs · backend</span></div>
       </div>
     </div>
@@ -785,7 +982,7 @@
       <span class="sec-sub">dependencies.json</span>
     </div>
 
-    <div class="skill-panel reveal">
+        <div class="skill-panel reveal">
       <div class="term-bar">
         <span class="dotbtn r"></span><span class="dotbtn y"></span><span class="dotbtn g"></span>
         <span class="title">stack.config</span>
@@ -794,38 +991,38 @@
         <div class="skill-group">
           <div class="skill-key"><span class="quote">"languages_frameworks"</span>:</div>
           <div class="chips">
-            <span class="chip">Java 8/11/17</span><span class="chip">Spring Boot</span><span class="chip">Spring WebFlux</span>
-            <span class="chip">Spring Security</span><span class="chip">Spring Data JPA</span><span class="chip">Hibernate</span>
-            <span class="chip">Spring AI</span><span class="chip">Python</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-java"/></svg>Java 8/11/17</span><span class="chip"><svg class="chip-icon amber"><use href="#icon-spring"/></svg>Spring Boot</span><span class="chip"><svg class="chip-icon"><use href="#icon-flux"/></svg>Spring WebFlux</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-shield"/></svg>Spring Security</span><span class="chip"><svg class="chip-icon"><use href="#icon-table"/></svg>Spring Data JPA</span><span class="chip"><svg class="chip-icon"><use href="#icon-link"/></svg>Hibernate</span>
+            <span class="chip"><svg class="chip-icon amber"><use href="#icon-ai"/></svg>Spring AI</span><span class="chip"><svg class="chip-icon"><use href="#icon-python"/></svg>Python</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-key"><span class="quote">"cloud_devops"</span>:</div>
           <div class="chips">
-            <span class="chip">AWS (EC2, S3, Lambda, RDS, EKS)</span><span class="chip">GCP</span><span class="chip">Docker</span>
-            <span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">Jenkins</span><span class="chip">Terraform</span><span class="chip">Ansible</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-aws"/></svg>AWS (EC2, S3, Lambda, RDS, EKS)</span><span class="chip"><svg class="chip-icon"><use href="#icon-gcp"/></svg>GCP</span><span class="chip"><svg class="chip-icon"><use href="#icon-docker"/></svg>Docker</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-k8s"/></svg>Kubernetes</span><span class="chip"><svg class="chip-icon"><use href="#icon-helm"/></svg>Helm</span><span class="chip"><svg class="chip-icon"><use href="#icon-jenkins"/></svg>Jenkins</span><span class="chip"><svg class="chip-icon"><use href="#icon-terraform"/></svg>Terraform</span><span class="chip"><svg class="chip-icon"><use href="#icon-ansible"/></svg>Ansible</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-key"><span class="quote">"data_messaging"</span>:</div>
           <div class="chips">
-            <span class="chip">MySQL</span><span class="chip">PostgreSQL</span><span class="chip">Oracle SQL</span><span class="chip">MongoDB</span>
-            <span class="chip">Redis</span><span class="chip">MariaDB Vector Store</span><span class="chip">pgvector</span><span class="chip">Apache Kafka</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-db"/></svg>MySQL</span><span class="chip"><svg class="chip-icon"><use href="#icon-db"/></svg>PostgreSQL</span><span class="chip"><svg class="chip-icon"><use href="#icon-db"/></svg>Oracle SQL</span><span class="chip"><svg class="chip-icon amber"><use href="#icon-leaf"/></svg>MongoDB</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-bolt"/></svg>Redis</span><span class="chip"><svg class="chip-icon"><use href="#icon-vector"/></svg>MariaDB Vector Store</span><span class="chip"><svg class="chip-icon"><use href="#icon-vector"/></svg>pgvector</span><span class="chip"><svg class="chip-icon"><use href="#icon-stream"/></svg>Apache Kafka</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-key"><span class="quote">"security_quality_tools"</span>:</div>
           <div class="chips">
-            <span class="chip">JWT</span><span class="chip">OAuth2</span><span class="chip">Fortify</span><span class="chip">SonarQube</span>
-            <span class="chip">JUnit</span><span class="chip">Mockito</span><span class="chip">TDD</span><span class="chip">Postman</span><span class="chip">Git</span><span class="chip">Maven</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-key"/></svg>JWT</span><span class="chip"><svg class="chip-icon"><use href="#icon-lock"/></svg>OAuth2</span><span class="chip"><svg class="chip-icon"><use href="#icon-shieldcheck"/></svg>Fortify</span><span class="chip"><svg class="chip-icon"><use href="#icon-search"/></svg>SonarQube</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-checkcircle"/></svg>JUnit</span><span class="chip"><svg class="chip-icon"><use href="#icon-flask"/></svg>Mockito</span><span class="chip"><svg class="chip-icon"><use href="#icon-cycle"/></svg>TDD</span><span class="chip"><svg class="chip-icon"><use href="#icon-send"/></svg>Postman</span><span class="chip"><svg class="chip-icon"><use href="#icon-branch"/></svg>Git</span><span class="chip"><svg class="chip-icon"><use href="#icon-package"/></svg>Maven</span>
           </div>
         </div>
         <div class="skill-group">
           <div class="skill-key"><span class="quote">"concepts"</span>:</div>
           <div class="chips">
-            <span class="chip">Microservices</span><span class="chip">REST API Design</span><span class="chip">RAG Pipelines</span>
-            <span class="chip">Model Context Protocol</span><span class="chip">LLM Integration</span><span class="chip">Design Patterns</span>
-            <span class="chip">System Design</span><span class="chip">Agile/Scrum</span><span class="chip">DSA</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-nodes"/></svg>Microservices</span><span class="chip"><svg class="chip-icon"><use href="#icon-api"/></svg>REST API Design</span><span class="chip"><svg class="chip-icon amber"><use href="#icon-rag"/></svg>RAG Pipelines</span>
+            <span class="chip"><svg class="chip-icon amber"><use href="#icon-mcp"/></svg>Model Context Protocol</span><span class="chip"><svg class="chip-icon amber"><use href="#icon-llm"/></svg>LLM Integration</span><span class="chip"><svg class="chip-icon"><use href="#icon-pattern"/></svg>Design Patterns</span>
+            <span class="chip"><svg class="chip-icon"><use href="#icon-system"/></svg>System Design</span><span class="chip"><svg class="chip-icon"><use href="#icon-agile"/></svg>Agile/Scrum</span><span class="chip"><svg class="chip-icon"><use href="#icon-dsa"/></svg>DSA</span>
           </div>
         </div>
       </div>
@@ -844,8 +1041,8 @@
       <div class="project-title">Express Store — Omnichannel Retail E-commerce</div>
       <div class="project-sub">Verizon (via Cognizant)</div>
       <div class="project-stack">
-        <span class="chip">Spring Boot</span><span class="chip">WebFlux</span><span class="chip">JWT</span>
-        <span class="chip">OAuth2</span><span class="chip">JPA</span><span class="chip">Redis</span><span class="chip">AWS</span>
+        <span class="chip"><svg class="chip-icon amber"><use href="#icon-spring"/></svg>Spring Boot</span><span class="chip">WebFlux</span><span class="chip">JWT</span>
+        <span class="chip">OAuth2</span><span class="chip">JPA</span><span class="chip">Redis</span><span class="chip"><svg class="chip-icon"><use href="#icon-aws"/></svg>AWS</span>
       </div>
       <ul>
         <li>Developed reactive REST APIs for kiosk, web &amp; mobile checkout flows using Spring Boot &amp; Spring WebFlux — improved concurrent request handling by 40%.</li>
@@ -1095,9 +1292,12 @@
       <div>
         <div class="skill-key mono" style="margin-bottom:6px;">CERTIFICATIONS</div>
         <div class="list-item">
-          <div>
-            <div class="li-title">AWS Certified Solutions Architect – Associate</div>
-            <div class="li-sub">ID: 31C95TP28MREQKK7</div>
+          <div class="li-title-row">
+            <svg class="cert-icon"><use href="#icon-aws"/></svg>
+            <div>
+              <div class="li-title">AWS Certified Solutions Architect – Associate</div>
+              <div class="li-sub">ID: 31C95TP28MREQKK7</div>
+            </div>
           </div>
           <div class="li-right-group">
             <span class="li-right">2023</span>
@@ -1108,9 +1308,12 @@
           </div>
         </div>
         <div class="list-item">
-          <div>
-            <div class="li-title">Google Cloud Certified – Associate Cloud Engineer</div>
-            <div class="li-sub">ID: ba8314e123e44bd4966ba4a2ef93ed96</div>
+          <div class="li-title-row">
+            <svg class="cert-icon"><use href="#icon-gcp"/></svg>
+            <div>
+              <div class="li-title">Google Cloud Certified – Associate Cloud Engineer</div>
+              <div class="li-sub">ID: ba8314e123e44bd4966ba4a2ef93ed96</div>
+            </div>
           </div>
           <div class="li-right-group">
             <span class="li-right">2024</span>
