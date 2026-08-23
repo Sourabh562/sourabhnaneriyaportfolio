@@ -320,6 +320,10 @@
   .project-stack{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
   .project-card ul{list-style:none;}
   .project-card li{position:relative;padding-left:20px;margin-bottom:10px;color:#C7D1DB;font-size:14.5px;}
+
+  .project-card-compact{padding:28px 32px;}
+  .project-desc{font-size:14.5px;color:#C7D1DB;line-height:1.6;margin-bottom:20px;max-width:640px;}
+  .live-demo-btn{display:inline-flex;}
   .project-card li::before{content:"▸";position:absolute;left:0;color:var(--cyan);}
 
   /* ---------- ARCHITECTURE DIAGRAM ---------- */
@@ -883,7 +887,7 @@
       </div>
 
       <div class="photo-frame tilt" id="photoTilt">
-         <img src="SN.png" alt="Sourabh Naneriya">
+        <img src="SN.png" alt="Sourabh Naneriya">
         <div class="photo-tag"><span>sourabh.jpg</span><span>3+ yrs · backend</span></div>
       </div>
     </div>
@@ -1034,7 +1038,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="sec-index mono">§ 03</span>
-      <span class="sec-title-wrap"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 8 4.5v11L12 22l-8-4.5v-11L12 2Z"/><path d="M12 22V12"/><path d="m20 6.5-8 5.5-8-5.5"/></svg><span class="sec-title">Featured Project</span></span>
+      <span class="sec-title-wrap"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 8 4.5v11L12 22l-8-4.5v-11L12 2Z"/><path d="M12 22V12"/><path d="m20 6.5-8 5.5-8-5.5"/></svg><span class="sec-title">Featured Projects</span></span>
     </div>
 
     <div class="project-card reveal">
@@ -1138,6 +1142,16 @@
         </svg>
         </div>
       </div>
+    </div>
+
+    <div class="project-card project-card-compact reveal" style="margin-top:24px;">
+      <div class="project-title">Java Interview Prep</div>
+      <div class="project-sub">Personal project · interactive reference site</div>
+      <p class="project-desc">Interactive Java interview preparation reference covering OOP, Collections, Concurrency, Java 8+ Streams, JVM, Generics, and more.</p>
+      <a class="btn btn-ghost live-demo-btn" href="https://sourabh562.github.io/java_interview_prep/" target="_blank" rel="noopener">
+        Live Demo
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+      </a>
     </div>
   </div>
 </section>
